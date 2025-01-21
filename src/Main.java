@@ -1,45 +1,39 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         int[] arr = new int[7];
-        int index = (int)(Math.random()*(arr.length-2));
-        for(int i = index;i<index+3;i++){
+        int guessCount  =0;
+
+        ArrayList<Integer> list = new ArrayList<>();
+        int index = (int) (Math.random() * (arr.length - 2));
+        for (int i = index; i < index + 3; i++) {
             arr[i] = 1;
-        }
-        for (int i :arr){
-            System.out.print(i+",");
+            list.add(i);
         }
         Scanner scanner = new Scanner(System.in);
-        int userInput;
-        boolean isKill = true ;
-        int guessCount = 0;
-        System.out.println("User Enter Prompt:");
-        do {
-            userInput = scanner.nextInt();
+        while (!list.isEmpty()){
+            System.out.println("Enter prompt value");
+            int userInput = scanner.nextInt();
             guessCount++;
-
-            if(userInput>arr.length){
-                System.out.println("OOPS!! you have gone too far!! Enter prompt between 0 to 7");
+            if (userInput<0 || userInput>arr.length){
+                System.out.println("You gone to far away prompt value between 0 to 6");
             }
-            else if (arr[userInput] ==1){
+            else if ( arr[userInput]==1){
                 System.out.println("hit");
-                arr[userInput] = -1;
+                arr[userInput] = 0;
+                list.remove(Integer.valueOf(userInput));
             }
             else
+            {
                 System.out.println("miss");
-           if(hasThreeConsecutiveHits(arr)){
-               isKill = false;
-           }
-        }while (isKill);
-        System.out.println("Congratulations! You found all hits in " + guessCount + " guesses.");
-    }
-    public static boolean hasThreeConsecutiveHits(int arr[]){
-        for (int i =0;i<arr.length-2;i++){
-            if(arr[i] == -1 && arr[i+1] ==-1 && arr[i+2]==-1){
-                return true;
+            }
+            if (list.isEmpty()){
+                System.out.println("kill");
+                break;
             }
         }
-        return false;
+        System.out.println("you gueesed in " + guessCount);
     }
 }
