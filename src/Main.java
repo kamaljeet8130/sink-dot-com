@@ -34,6 +34,11 @@ public class Main {
                 break;
             }
         }
-        System.out.println("you gueesed in " + guessCount);
+        if (guessCount>5){
+            System.out.println("It took you so long to guess : " + guessCount);
+        }
+        else {
+            System.out.println("Great you took only " + guessCount + " number of guess ");
+        }
     }
 }
